@@ -13,12 +13,8 @@ def load_data():
     return  df
 
 def preprocess_data(df):
-    # De-duplicate input data
     df =  de_duplication(df)
-    # remove noise in input data
     df = noise_remover(df)
-    # translate data to english
-    # df[Config.TICKET_SUMMARY] = translate_to_en(df[Config.TICKET_SUMMARY].tolist())
     return df
 
 def get_embeddings(df:pd.DataFrame):
