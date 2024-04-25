@@ -18,7 +18,7 @@ def preprocess_data(df):
     return df
 
 def get_embeddings(df:pd.DataFrame):
-    X = get_tfidf_embd(df)  # get tf-idf embeddings
+    X = get_tfidf_embd(df)
     return X, df
 
 def get_data_object(X: np.ndarray, df: pd.DataFrame):
@@ -39,4 +39,5 @@ if __name__ == '__main__':
         X, group_df = get_embeddings(group_df)
         data = get_data_object(X, group_df)
         perform_modelling(data, group_df, name)
+        i = i+1
 
