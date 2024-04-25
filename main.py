@@ -33,8 +33,9 @@ if __name__ == '__main__':
     df[Config.INTERACTION_CONTENT] = df[Config.INTERACTION_CONTENT].values.astype('U')
     df[Config.TICKET_SUMMARY] = df[Config.TICKET_SUMMARY].values.astype('U')
     grouped_df = df.groupby(Config.GROUPED)
+    i = 0
     for name, group_df in grouped_df:
-        print(name)
+        print("Group ",i+1," :")
         X, group_df = get_embeddings(group_df)
         data = get_data_object(X, group_df)
         perform_modelling(data, group_df, name)
