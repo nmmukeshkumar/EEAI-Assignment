@@ -5,5 +5,5 @@ class Config:
 
     # Type Columns to test
     TYPE_COLS = ['y2', 'y3', 'y4']
-    CLASS_COL = 'y2'
+    CLASS_COL = ['y2', 'y3', 'y4']
     GROUPED = 'y1'

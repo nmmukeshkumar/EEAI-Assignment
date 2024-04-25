@@ -11,8 +11,7 @@ def get_input_data()->pd.DataFrame:
     df = pd.concat([df1, df2])
     df[Config.INTERACTION_CONTENT] = df[Config.INTERACTION_CONTENT].values.astype('U')
     df[Config.TICKET_SUMMARY] = df[Config.TICKET_SUMMARY].values.astype('U')
-    df["y"] = df[Config.CLASS_COL]
-    df = df.loc[(df["y"] != '') & (~df["y"].isna()),]
+    df = df.dropna(subset=['y2', 'y3', 'y4'])
     return df
 
 def de_duplication(data: pd.DataFrame):
