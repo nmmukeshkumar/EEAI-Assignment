@@ -11,7 +11,7 @@ import random
 num_folds = 0
 seed =0
 
-np.random.seed(seed)
+np.random.seed(seed) #making this to get the randomized seedings to make the better op#
 random.seed(seed)
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
@@ -36,14 +36,16 @@ class RandomForest(BaseModel):
     def train(self, data) -> None:
         print("Training")
         self.mdl = self.mdl.fit(data.X_train, data.y_train)
+        #training the model for the multi class output classifier
 
     def predict(self, X_test: pd.Series):
         print("Evaluating")
         predictions = self.mdl.predict(X_test)
         self.predictions = predictions
+        #makes the predicitons and stores under the variable
 
     def print_results(self, data):
-        data.y_test = data.y_test.to_numpy()
+        data.y_test = data.y_test.to_numpy()    #tests the model which is been created and generates the accuracy by flowing through the loops, and made to provide the accuracy based upon the type mentioned
         print("Printing Results")
         induvidual_accuracies = []
         array_length = len(data.y_test)
