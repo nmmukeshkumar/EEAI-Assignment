@@ -3,18 +3,18 @@ import re
 from Config import *
 
 
-def get_input_data()->pd.DataFrame:
+def get_input_data()->pd.DataFrame:       #getting the input through two data sets which is been loaded and the columns are renamed
     df1 = pd.read_csv("data//AppGallery.csv", skipinitialspace=True)
     df1.rename(columns={'Type 1': 'y1', 'Type 2': 'y2', 'Type 3': 'y3', 'Type 4': 'y4'}, inplace=True)
     df2 = pd.read_csv("data//Purchasing.csv", skipinitialspace=True)
     df2.rename(columns={'Type 1': 'y1', 'Type 2': 'y2', 'Type 3': 'y3', 'Type 4': 'y4'}, inplace=True)
-    df = pd.concat([df1, df2])
-    df[Config.INTERACTION_CONTENT] = df[Config.INTERACTION_CONTENT].values.astype('U')
+    df = pd.concat([df1, df2])   # making the concat as one above and one below
+    df[Config.INTERACTION_CONTENT] = df[Config.INTERACTION_CONTENT].values.astype('U')  #uppercase
     df[Config.TICKET_SUMMARY] = df[Config.TICKET_SUMMARY].values.astype('U')
     df = df.dropna(subset=['y2', 'y3', 'y4'])
     return df
 
-def de_duplication(data: pd.DataFrame):
+def de_duplication(data: pd.DataFrame):   #followoing this duplicated values and are being limited for making the model work well
     data["ic_deduplicated"] = ""
 
     cu_template = {
@@ -53,7 +53,7 @@ def de_duplication(data: pd.DataFrame):
     cu_pattern = ""
     for i in sum(list(cu_template.values()), []):
         cu_pattern = cu_pattern + f"({i})|"
-    cu_pattern = cu_pattern[:-1]
+    cu_pattern = cu_pattern[:-1] #this is to check the regular expression doesn't make the unwanted alternative
 
     # -------- email split template
 
@@ -108,7 +108,7 @@ def de_duplication(data: pd.DataFrame):
     data = data.drop(columns=['ic_deduplicated'])
     return data
 
-def noise_remover(df: pd.DataFrame):
+def noise_remover(df: pd.DataFrame):   #this removes unwanted character on the dataset and make it more cleanier to work well, after applying the toeknisation(tfidf process)
     noise = "(sv\s*:)|(wg\s*:)|(ynt\s*:)|(fw(d)?\s*:)|(r\s*:)|(re\s*:)|(\[|\])|(aspiegel support issue submit)|(null)|(nan)|((bonus place my )?support.pt 自动回复:)"
     df[Config.TICKET_SUMMARY] = df[Config.TICKET_SUMMARY].str.lower().replace(noise, " ", regex=True).replace(r'\s+', ' ', regex=True).str.strip()
     df[Config.INTERACTION_CONTENT] = df[Config.INTERACTION_CONTENT].str.lower()

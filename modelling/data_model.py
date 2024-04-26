@@ -13,7 +13,7 @@ class Data():
                  X: np.ndarray,
                  df: pd.DataFrame) -> None:
 
-        y = df[Config.CLASS_COL]
+        y = df[Config.CLASS_COL]  #used to extract the target variable from the dataframe
 
         self.X_train, self.X_test, self.y_train, self.y_test= train_test_split(X, y, test_size=0.2, random_state=42)
         self.y = y
@@ -32,3 +32,4 @@ class Data():
         return  self.y_test
     def get_embeddings(self):
         return  self.embeddings
+    # these functions are used to handle the data splitting process, and all the methods and making the interference for accessing the data
